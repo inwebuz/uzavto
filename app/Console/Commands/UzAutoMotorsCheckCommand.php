@@ -39,7 +39,7 @@ class UzAutoMotorsCheckCommand extends Command
             'damas',
             'kobalt',
             'cobalt',
-            'onix',
+            // 'onix',
         ];
         foreach ($data as $model) {
             if (!empty($model['name'])) {
@@ -54,10 +54,10 @@ class UzAutoMotorsCheckCommand extends Command
         }
 
         $botApiToken = env('TELEGRAM_BOT_TOKEN');
-        Http::get("https://api.telegram.org/bot{$botApiToken}/sendMessage", [
-            'chat_id' => env('TELEGRAM_CHAT_ID'),
-            'text' => $text,
-        ]);
+        // Http::get("https://api.telegram.org/bot{$botApiToken}/sendMessage", [
+        //     'chat_id' => env('TELEGRAM_CHAT_ID'),
+        //     'text' => $text,
+        // ]);
         if (count($additionalNotifications)) {
             foreach ($additionalNotifications as $item) {
                 Http::get("https://api.telegram.org/bot{$botApiToken}/sendMessage", [
