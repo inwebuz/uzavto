@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('uzauto:check')->everyMinute();
         $schedule->command('uzauto:check')->everyThreeMinutes();
-        $schedule->command('uzauto:check full')->everyTenMinutes();
+        // $schedule->command('uzauto:check full')->everyTenMinutes();
     }
 
     /**
