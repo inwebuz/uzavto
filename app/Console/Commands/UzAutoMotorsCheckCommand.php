@@ -65,7 +65,7 @@ class UzAutoMotorsCheckCommand extends Command
         }
         if ($full) {
             Http::get("https://api.telegram.org/bot{$botApiToken}/sendMessage", [
-                'chat_id' => env('TELEGRAM_CHAT_ID'),
+                'chat_id' => env('TELEGRAM_ADMIN_CHAT_ID'),
                 'text' => $text,
             ]);
         }
