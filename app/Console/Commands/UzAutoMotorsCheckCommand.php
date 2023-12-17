@@ -12,7 +12,7 @@ class UzAutoMotorsCheckCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'uzauto:check';
+    protected $signature = 'uzauto:check {full?}';
 
     /**
      * The console command description.
@@ -26,6 +26,7 @@ class UzAutoMotorsCheckCommand extends Command
      */
     public function handle()
     {
+        $full = $this->argument('full');
         $res = Http::withHeader('Accept', 'application/json')->post('https://savdo.uzavtosanoat.uz/b/ap/stream/ph&models', [
             'is_web' => 'Y',
             'filial_id' => 100,
@@ -49,15 +50,11 @@ class UzAutoMotorsCheckCommand extends Command
                         $additionalNotifications[] = $model['name'];
                     }
                 }
-
             }
         }
 
         $botApiToken = env('TELEGRAM_BOT_TOKEN');
-        // Http::get("https://api.telegram.org/bot{$botApiToken}/sendMessage", [
-        //     'chat_id' => env('TELEGRAM_CHAT_ID'),
-        //     'text' => $text,
-        // ]);
+
         if (count($additionalNotifications)) {
             foreach ($additionalNotifications as $item) {
                 Http::get("https://api.telegram.org/bot{$botApiToken}/sendMessage", [
@@ -65,6 +62,12 @@ class UzAutoMotorsCheckCommand extends Command
                     'text' => $item . ' - доступен https://savdo.uzavtosanoat.uz/',
                 ]);
             }
+        }
+        if ($full) {
+            Http::get("https://api.telegram.org/bot{$botApiToken}/sendMessage", [
+                'chat_id' => env('TELEGRAM_CHAT_ID'),
+                'text' => $text,
+            ]);
         }
     }
 }
