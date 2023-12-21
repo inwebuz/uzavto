@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('uzauto:check')->everyMinute();
-        $schedule->command('uzauto:check')->everyThreeMinutes();
+        // $schedule->command('uzauto:check')->everyThreeMinutes();
         $schedule->command('uzauto:check full')->everyTenMinutes();
     }
 

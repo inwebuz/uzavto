@@ -28,12 +28,16 @@ class UzAutoMotorsCheckCommand extends Command
     public function handle()
     {
         $full = $this->argument('full');
-        $res = Http::withHeader('Accept', 'application/json')->post('https://savdo.uzavtosanoat.uz/b/ap/stream/ph&models', [
+        $res = Http::withHeaders([
+            'Accept' => 'application/json',
+            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0',
+            'Cookie' => 'JSESSIONID=8E77DDB0C403C85311AFF08664EE66EF; lang=ru',
+            'Origin' => 'https://savdo.uzavtosanoat.uz',
+            'Referer' => 'https://savdo.uzavtosanoat.uz/',
+        ])->post('https://savdo.uzavtosanoat.uz/b/ap/stream/ph&models', [
             'is_web' => 'Y',
             'filial_id' => 100,
         ]);
-        Log::info($res->status());
-        Log::info($res->body());
         $data = $res->json();
         $text = '';
         $additionalNotifications = [];
@@ -53,6 +57,8 @@ class UzAutoMotorsCheckCommand extends Command
                         $additionalNotifications[] = $model['name'];
                     }
                 }
+            } else {
+                Log::info($model);
             }
         }
 
