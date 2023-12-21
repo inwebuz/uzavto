@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class UzAutoMotorsCheckCommand extends Command
 {
@@ -31,6 +32,8 @@ class UzAutoMotorsCheckCommand extends Command
             'is_web' => 'Y',
             'filial_id' => 100,
         ]);
+        Log::info($res->status());
+        Log::info($res->body());
         $data = $res->json();
         $text = '';
         $additionalNotifications = [];
